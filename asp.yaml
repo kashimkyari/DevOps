@@ -1,0 +1,67 @@
+
+
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: agent-deploy-poc
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: agentdesk
+  template:
+    metadata:
+      labels:
+        app: agentdesk
+    spec:
+      containers:
+      - name: agentdesk
+        image: agentdesk:latest
+        ports:
+        - containerPort: 80
+    
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: agentdesk-deploy-svc
+spec:
+  ports:
+  - port: 80
+    targetPort: 80
+    nodePort: 30245
+    
+      
+  selector:
+    app: agentdesk
+  type: NodePort
+  # # externalTrafficPolicy: Local
+
+  
+  
+ 
+  
+
+---
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: agentdesk-ingress
+  namespace: default
+  
+spec:
+  rules:
+  - host: 88812ff4-1c4f-48e5-bc2f-299ae8f65896.eu-west-1.linodelke.net
+  - http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: agentdesk-deploy-svc
+            port:
+              number: 80
+    
