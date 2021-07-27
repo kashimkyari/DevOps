@@ -1,0 +1,16 @@
+---
+
+strongswan_packages: 
+  - strongswan
+
+strongswan_prefix: /etc/strongswan
+
+strongswan_ipsec_bin: /sbin/strongswan
+
+strongswan_os_major: "{{ansible distribuition_major_version}}"
+  # CentOS: "{{ansible_distribuited_major_version}}"
+  # RedHat: "{{ansible_distribuited_major_version}}"
+
+strongswan_epel_baseurl: "https://dl.fedoraproject.org"
+strongswan_epel_package: "epel-release-latest-{{strongswan_os_major[ansible_distribuition]}}.noarch.rpm"
+strongswan_epel_url: "{{strongswan_epel_baseurl}}/pub/epel/{{strongswan_epel_package}}"

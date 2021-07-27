@@ -1,0 +1,10 @@
+---
+
+- include: "install/{{ansible_os_family}}.yaml"
+
+- name: Strongswan packages
+  package: 
+    name: "{{item}}"
+    state: present
+  with_items: "{{strongswan_packages}}"
+  register: _strongswan_pkgs

@@ -1,0 +1,94 @@
+---
+  - name: Include OS Family vars
+    include_vars: "{{ansible_os_family}}.yaml"
+    tags: always
+
+
+  - include: install.yaml
+    tags: strongswan_install
+
+  - include: config.yaml
+    tags: strongswan_config
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# ---
+# - name: update repo
+#   apt:
+#     upgrade: dist
+
+
+# - name: install strongswan
+#   apt: 
+#     name: "{{item}}"
+#     install-recommends: no
+#     state: present
+#   with_items:
+#     - strongswan
+
+# - name: Allow forwarding
+#   sysctl:
+#     name: net.ipv4.ip_forward
+#     value: 1
+#     state: present
+#   tags:
+#     - network
+
+# - name: Allow forwarding 
+#   sysctl:
+#     name: net.ipv4.conf.all.accept_redirects
+#     value: 0
+#     state: present
+#   tags:
+#     - network
+
+# - name: Allow forwarding
+#   sysctl:
+#     name: net.ipv4.conf.all.send_redirects
+#     value: 1
+#     state: present
+#   tags: 
+#     - network
+

@@ -1,0 +1,13 @@
+---
+
+- name: ipsec reload
+  command: >
+    /usr/sbin/ipsec restart
+  when: not (_strongswan_pkgs|changed)
+
+- name: ipsec secrets reload
+  command: >
+    /usr/sbin/ipsec rereadsecrets
+  when: not (_strongswan_pkgs|changed)
+
+  
