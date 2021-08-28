@@ -1,13 +1,13 @@
 ---
 
 # ipsec.secrets config
-source_gatewayleft: 91.217.245.15
-source_gatewayright: 10.25.55.200
-preshared_key: "35dB2WfNAYW2WjAp"
+source_gatewayleft: 0.0.0.0
+source_gatewayright: 0.0.0.0
+preshared_key: ""
 
 # ipsec.conf
 connection_name: Tunnel to HAProxy server
-leftid: 91.217.245.15
-leftsubnet: 10.8.0.0/20
-rightid: 10.25.55.200
-rightsubnet: 10.16.16.0/16
+leftid: 0.0.0.0
+leftsubnet: 0.0.0.0/0
+rightid: 0.0.0.0
+rightsubnet: 0.0.0.0/0

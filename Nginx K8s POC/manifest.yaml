@@ -4,21 +4,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: agent-deploy-poc
+  name: nginx-deploy-poc
   namespace: default
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: agentdesk
+      app: nginx
   template:
     metadata:
       labels:
-        app: agentdesk
+        app: nginx
     spec:
       containers:
-      - name: agentdesk
-        image: agentdesk:latest
+      - name: nginx
+        image: nginx:latest
         ports:
         - containerPort: 80
     
@@ -26,7 +26,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: agentdesk-deploy-svc
+  name: nginx-deploy-svc
 spec:
   ports:
   - port: 80
@@ -35,7 +35,7 @@ spec:
     
       
   selector:
-    app: agentdesk
+    app: nginx
   type: NodePort
   # # externalTrafficPolicy: Local
 
@@ -49,19 +49,33 @@ spec:
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: agentdesk-ingress
+  name: nginx-ingress
   namespace: default
   
 spec:
   rules:
-  - host: 88812ff4-1c4f-48e5-bc2f-299ae8f65896.eu-west-1.linodelke.net
+  - host: test.gotoadmins.cloud
   - http:
       paths:
       - path: /
         pathType: Prefix
         backend:
           service:
-            name: agentdesk-deploy-svc
+            name: nginx-deploy-svc
             port:
               number: 80
     
+---
+
+
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: nginx-config
+  namespace: default
+data:
+  proxy-protocol: "True"
+  real-ip-header: "proxy_protocol"
+  set-real-ip-from: ""
+  log_format:  '$remote_addr = $http_x_forwarded_for $remote_user [$time_local] "$request" ''$status $body_bytes_sent "$http_referer" ''"$http_user_agent" "$http_x_forwarded_for"'
+
